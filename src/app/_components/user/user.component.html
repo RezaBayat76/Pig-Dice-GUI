@@ -1,0 +1,12 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <span style="color:greenyellow" *ngIf="user.isOnline">online</span>
+      <span style="color: orangered" *ngIf="!user.isOnline">offline</span>
+    </h6>
+    <p class="card-text"></p>
+    <a href="#" class="card-link">Follow</a>
+    <a [routerLink]="['/user-comment', user.id]" class="card-link">add comment</a>
+  </div>
+</div>

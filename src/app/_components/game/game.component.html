@@ -1,0 +1,23 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">user creator: {{game.userCreator ? game.userCreator.firstName : ''}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <span style="color: grey">fall dice: {{game.fallDice}}</span>
+    </h6>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <span style="color: grey">max throw: {{game.maxThrow}}</span>
+    </h6>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <span style="color: grey">number dice: {{game.numDice}}</span>
+    </h6>
+    <p class="card-text">
+      <span style="color:gray">max score: {{game.maxScore}}</span>
+      <br/>
+      <span style="color: grey">average score: {{game.averageScore}}</span>
+
+    </p>
+    <a href="#" class="card-link">Play Game</a>
+    <a [routerLink]="['/game-comment', game.id]" class="card-link">add comment</a>
+
+  </div>
+</div>

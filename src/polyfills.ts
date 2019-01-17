@@ -21,6 +21,11 @@
 /** IE9, IE10, IE11, and Chrome <55 requires all of the following polyfills.
  *  This also includes Android Emulators with older versions of Chrome and Google Search/Googlebot
  */
+(window as any).global = window;
+
+import 'core-js/es6/reflect';
+import 'core-js/es7/reflect';
+import 'zone.js/dist/zone';
 
 // import 'core-js/es6/symbol';
 // import 'core-js/es6/object';
