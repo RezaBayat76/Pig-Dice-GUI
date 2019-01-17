@@ -8,4 +8,5 @@ export interface User {
   password?: string;
   token?: string;
   isOnline?: boolean;
+  isFollowed?: boolean;
 }

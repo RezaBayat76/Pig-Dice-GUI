@@ -6,7 +6,9 @@
       <span style="color: orangered" *ngIf="!user.isOnline">offline</span>
     </h6>
     <p class="card-text"></p>
-    <a href="#" class="card-link">Follow</a>
+    <button *ngIf="!user.isFollowed" (click)="follow()" type="button" class="btn btn-secondary btn-sm">Follow</button>
+    <button *ngIf="user.isFollowed" (click)="unFollow()" type="button" class="btn btn-secondary btn-sm">UnFollow</button>
+
     <a [routerLink]="['/user-comment', user.id]" class="card-link">add comment</a>
   </div>
 </div>

@@ -4,7 +4,6 @@ import {UserService} from '../_services/user.service';
 import {AuthenticationService} from '../_services/authentication.service';
 import {WebsocketService} from '../_services/websocket.service';
 import {Subscription} from 'rxjs/index';
-import {first} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-users',
@@ -36,11 +35,23 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getFollowings();
   }
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.currentUserSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
+  }
+
+  getFollowings() {
+    this.userService.getFollowings().subscribe((data: Array<number>) => {
+      data.forEach(value => {
+        const index = this.users.findIndex(value2 => value2.id === value);
+        if (index !== -1) {
+          this.users[index].isFollowed = true;
+        }
+      });
+    });
   }
 }

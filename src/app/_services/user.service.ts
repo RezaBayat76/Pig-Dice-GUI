@@ -44,4 +44,16 @@ export class UserService {
       mentionUserID: id
     });
   }
+
+  follow(id: number) {
+    return this.http.get(`${this.config.apiUrl}/users/follow/${id}`);
+  }
+
+  unFollow(id: number) {
+    return this.http.get(`${this.config.apiUrl}/users/unfollow/${id}`);
+  }
+
+  getFollowings() {
+    return this.http.get(`${this.config.apiUrl}/users/followings`);
+  }
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import {User} from '../_models/user';
-import {BehaviorSubject, Observable, Subject} from 'rxjs/index';
+import {BehaviorSubject, Observable} from 'rxjs/index';
 
 
 @Injectable({
@@ -71,13 +71,6 @@ export class WebsocketService {
     const _this = this;
     this.stompClient.connect({}, function (frame) {
       console.log('Connected: ' + frame);
-
-
-      _this.stompClient.subscribe('/topic/message', function (message) {
-        console.log(message.body);
-      });
-
-
       _this.stompClient.subscribe('/topic/user/online-users', function (message) {
         console.log('online userssssss')
         console.log(message.body);
