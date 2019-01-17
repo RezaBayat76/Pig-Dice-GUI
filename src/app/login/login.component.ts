@@ -5,6 +5,8 @@ import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../_services/authentication.service';
 import {AlertService} from '../_services/alert.service';
 import {WebsocketService} from '../_services/websocket.service';
+import {UserService} from '../_services/user.service';
+import {User} from '../_models/user';
 
 
 @Component({templateUrl: 'login.component.html'})
@@ -19,6 +21,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authenticationService: AuthenticationService,
               private alertService: AlertService,
+              private userService: UserService,
               private webSocketService: WebsocketService) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -55,11 +58,19 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.webSocketService.connect();
+          this.loadAllUsers();
           this.router.navigate([this.returnUrl]);
         },
         error => {
           this.alertService.error(error);
           this.loading = false;
         });
+  }
+
+  private loadAllUsers() {
+    this.userService.getAll().pipe(first())
+      .subscribe((users: Array<User>) => {
+        this.webSocketService.setAllUser(users);
+      });
   }
 }

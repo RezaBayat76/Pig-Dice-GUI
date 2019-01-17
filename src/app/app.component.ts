@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
               private userService: UserService,
               private websocketService: WebsocketService) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.webSocketService.setAllUser([]);
   }
 
   logout() {
