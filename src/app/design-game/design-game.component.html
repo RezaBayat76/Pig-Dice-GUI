@@ -4,7 +4,7 @@
       <h2>Lets design the Game:</h2>
       <form [formGroup]="designGameForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="maxScore">Maximum of scores</label>
+          <label for="maxScore">Maximum score</label>
           <input id="maxScore" type="text" formControlName="maxScore" class="form-control"
                  [ngClass]="{ 'is-invalid': submitted && f.maxScore.errors }"/>
           <div *ngIf="submitted && f.maxScore.errors" class="invalid-feedback">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="fallDice">Fall Dice</label>
+          <label for="fallDice">Fall dice</label>
           <input id="fallDice" type="text" formControlName="fallDice" class="form-control"
                  [ngClass]="{ 'is-invalid': submitted && f.fallDice.errors }"/>
           <div *ngIf="submitted && f.fallDice.errors" class="invalid-feedback">
@@ -20,14 +20,21 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="numDice">Play with this number of dice</label>
+          <label for="numDice">Number of dices</label>
           <input id="numDice" type="text" formControlName="numDice" class="form-control"
                  [ngClass]="{ 'is-invalid': submitted && f.numDice.errors }"/>
           <div *ngIf="submitted && f.numDice.errors" class="invalid-feedback">
             <div *ngIf="f.numDice.errors.required">Number of dice is required</div>
           </div>
         </div>
-
+        <div class="form-group">
+          <label for="maxThrow">Number of throws</label>
+          <input id="maxThrow" type="text" formControlName="maxThrow" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.maxThrow.errors }"/>
+          <div *ngIf="submitted && f.maxThrow.errors" class="invalid-feedback">
+            <div *ngIf="f.maxThrow.errors.required">Max throw is required</div>
+          </div>
+        </div>
         <div class="form-group">
           <button [disabled]="loading" class="btn btn-primary">Create Game</button>
           <img *ngIf="loading" class="pl-3"

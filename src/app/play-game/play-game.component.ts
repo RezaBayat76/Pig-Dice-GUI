@@ -6,6 +6,7 @@ import {Game} from '../_models/game';
 import {WebsocketService} from '../_services/websocket.service';
 import {PlayedGame} from '../_models/played-game';
 import {GameInfo} from '../_models/game-info';
+import {User} from '../_models/user';
 
 @Component({
   selector: 'app-play-game',
@@ -14,16 +15,19 @@ import {GameInfo} from '../_models/game-info';
 })
 export class PlayGameComponent implements OnInit {
 
+  finished = false;
   success = true;
   loading = true;
   hold: boolean;
   id: number;
-  currentDices: Array<number> = [];
   game: Game = {};
   diceImagePath1: string;
   diceImagePath2: string;
   playingGame: PlayedGame;
   gameInfo: GameInfo = {};
+  currentPlayer: User;
+  competitorPlayer: User;
+  winner: User;
 
 
   constructor(private webSocketService: WebsocketService,
@@ -32,7 +36,13 @@ export class PlayGameComponent implements OnInit {
               private route: ActivatedRoute) {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.playingGame = this.webSocketService.playingGame;
+    this.currentPlayer = JSON.parse(localStorage.getItem('currentUser'));
     if (this.playingGame) {
+      if (this.playingGame.firstPlayer.id === this.currentPlayer.id) {
+        this.competitorPlayer = this.playingGame.secondPlayer;
+      } else {
+        this.competitorPlayer = this.playingGame.firstPlayer;
+      }
       this.initialGame();
     } else {
       this.success = false;
@@ -45,15 +55,17 @@ export class PlayGameComponent implements OnInit {
   rollDice() {
     this.diceImagePath1 = null;
     this.diceImagePath2 = null;
-    this.playGameService.rollDice(this.id).subscribe((data: Array<number>) => {
-      this.currentDices = data;
-      this.diceImagePath1 = '../../assets/dice-' + data[0] + '.png';
-      if (this.game.numDice = 2) {
-        this.diceImagePath2 = '../../assets/dice-' + data[1] + '.png';
-      }
+    this.playGameService.rollDice(this.id).subscribe(data => {
+
     });
   }
 
+  setHold() {
+    this.diceImagePath1 = null;
+    this.diceImagePath2 = null;
+    this.playGameService.hold(this.id).subscribe(data => {
+    });
+  }
 
   initialGame() {
     this.webSocketService.disconnectedGame().subscribe(
@@ -64,14 +76,44 @@ export class PlayGameComponent implements OnInit {
 
     this.webSocketService.hold().subscribe(
       (data: boolean) => {
+        console.log(data)
         this.hold = data;
       });
 
     this.webSocketService.getGameInfo().subscribe(
       data => {
-        this.gameInfo = data;
+        if (data.playersGameInfo) {
+          this.diceImagePath1 = null;
+          this.diceImagePath2 = null;
+          console.log(data);
+
+          this.gameInfo = data;
+
+          if (this.gameInfo.playersGameInfo[this.currentPlayer.id].currentDices.length > 0) {
+
+            this.setDice(this.gameInfo.playersGameInfo[this.currentPlayer.id].currentDices);
+          } else if (this.gameInfo.playersGameInfo[this.competitorPlayer.id].currentDices.length > 0) {
+            this.setDice(this.gameInfo.playersGameInfo[this.competitorPlayer.id].currentDices);
+
+          }
+
+          if (this.gameInfo.playersGameInfo[this.currentPlayer.id].isWin) {
+            this.finished = true;
+            this.winner = this.currentPlayer;
+          } else if (this.gameInfo.playersGameInfo[this.competitorPlayer.id].isWin) {
+            this.finished = true;
+            this.winner = this.competitorPlayer;
+          }
+        }
       }
     );
+  }
 
+
+  setDice(rollDice: Array<number>) {
+    this.diceImagePath1 = '../../assets/dice-' + rollDice[0] + '.png';
+    if (rollDice[1]) {
+      this.diceImagePath2 = '../../assets/dice-' + rollDice[1] + '.png';
+    }
   }
 }

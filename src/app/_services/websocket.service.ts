@@ -25,7 +25,7 @@ export class WebsocketService {
   private disconnectedGameSubject = new Subject<string>();
   private holdSubject = new Subject<boolean>();
 
-  private gameInfoSubject = new Subject<GameInfo>();
+  private gameInfoSubject = new BehaviorSubject<GameInfo>({});
 
   constructor() {
   }
@@ -63,7 +63,7 @@ export class WebsocketService {
     return this.holdSubject.asObservable();
   }
 
-  updateGameInfo(gameInfo) {
+  updateGameInfo(gameInfo: GameInfo) {
     this.gameInfoSubject.next(gameInfo);
   }
 
@@ -173,7 +173,7 @@ export class WebsocketService {
         _this.updateHold(message.body);
       });
 
-      _this.stompClient.subscribe('topic/user/game-info', function (message) {
+      _this.stompClient.subscribe('/topic/user/game-info', function (message) {
         _this.updateGameInfo(JSON.parse(message.body));
       });
 

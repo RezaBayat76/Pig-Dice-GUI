@@ -3,8 +3,10 @@ export interface GameInfo {
 }
 
 export interface PlayerGameInfo {
-
-  currentScore: number;
-  hold: boolean;
-
+  currentScore?: number;
+  score?: number;
+  hold?: boolean;
+  currentDices?: Array<number>;
+  currentThrow?: number;
+  isWin?: boolean;
 }

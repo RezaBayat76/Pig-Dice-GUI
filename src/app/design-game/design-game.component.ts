@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {first} from 'rxjs/internal/operators';
 import {GameService} from '../_services/game.service';
 import {AlertService} from '../_services/alert.service';
 
@@ -23,9 +22,10 @@ export class DesignGameComponent implements OnInit {
 
   ngOnInit() {
     this.designGameForm = this.formBuilder.group({
-      maxScore: [100, Validators.required],
+      maxScore: [50, Validators.required],
       fallDice: [3, Validators.required],
-      numDice: [3, Validators.required]
+      numDice: [2, Validators.required],
+      maxThrow: [10]
     });
   }
 

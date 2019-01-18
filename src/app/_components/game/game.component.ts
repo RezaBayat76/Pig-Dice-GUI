@@ -13,6 +13,7 @@ export class GameComponent implements OnInit {
 
   @Input() game: Game = {};
   loading: boolean;
+  modal = false;
 
 
   constructor(private webSocketService: WebsocketService,
@@ -23,6 +24,9 @@ export class GameComponent implements OnInit {
   ngOnInit() {
   }
 
+  showModal() {
+    this.modal = true;
+  }
 
   startGame() {
     this.loading = true;
@@ -30,6 +34,7 @@ export class GameComponent implements OnInit {
     this.webSocketService.startPlayingGame().subscribe(
       data => {
         this.loading = false;
+        this.modal = false;
         this.router.navigate(['/start-game/' + data.id]);
       });
 
