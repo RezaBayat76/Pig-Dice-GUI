@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import {User} from '../_models/user';
-import {BehaviorSubject, Observable} from 'rxjs/index';
+import {BehaviorSubject, Observable, Subject} from 'rxjs/index';
+import {Game} from '../_models/game';
+import {PlayedGame} from '../_models/played-game';
 
 
 @Injectable({
@@ -16,11 +18,45 @@ export class WebsocketService {
   user: User;
   private userSubject = new BehaviorSubject<Map<number, User>>(this.users);
   private onlineUserSubject = new BehaviorSubject<Map<number, User>>(this.onlineUsers);
-
+  private onlineGamesSubject = new BehaviorSubject<Array<Game>>([]);
+  private playingGameSubject = new Subject<PlayedGame>();
+  private disconnectedGameSubject = new Subject<string>();
+  private holdSubject = new Subject<boolean>();
 
   constructor() {
   }
 
+  updateOnlineGame(games: Array<Game>) {
+    this.onlineGamesSubject.next(games);
+  }
+
+  getOnlineGames(): Observable<Array<Game>> {
+    return this.onlineGamesSubject.asObservable();
+  }
+
+  startGame(game: PlayedGame) {
+    this.playingGameSubject.next(game);
+  }
+
+  startPlayingGame(): Observable<PlayedGame> {
+    return this.playingGameSubject.asObservable();
+  }
+
+  setDisconnectedGame(message: string) {
+    this.disconnectedGameSubject.next(message);
+  }
+
+  disconnectedGame(): Observable<string> {
+    return this.disconnectedGameSubject.asObservable();
+  }
+
+  updateHold(hold: boolean) {
+    this.holdSubject.next(hold);
+  }
+
+  hold(): Observable<boolean> {
+    return this.holdSubject.asObservable();
+  }
 
   setUser(user: User) {
     this.user = user;
@@ -72,7 +108,7 @@ export class WebsocketService {
     this.stompClient.connect({}, function (frame) {
       console.log('Connected: ' + frame);
       _this.stompClient.subscribe('/topic/user/online-users', function (message) {
-        console.log('online userssssss')
+        console.log('online userssssss');
         console.log(message.body);
         _this.onlineUsers = new Map();
 
@@ -106,6 +142,22 @@ export class WebsocketService {
         const user = JSON.parse(message.body);
         _this.users.set(user.id, user);
         _this.updateusers();
+      });
+
+      _this.stompClient.subscribe('/topic/online-games', function (message) {
+        _this.updateOnlineGame(JSON.parse(message.body));
+      });
+
+      _this.stompClient.subscribe('/topic/user/start-game', function (message) {
+        _this.startGame(JSON.parse(message.body));
+      });
+
+      _this.stompClient.subscribe('/topic/user/kill', function (message) {
+        _this.setDisconnectedGame(message.body);
+      });
+
+      _this.stompClient.subscribe('/topic/user/hold', function (message) {
+        _this.updateHold(message.body);
       });
 
       _this.stompClient.send('/app/start',
