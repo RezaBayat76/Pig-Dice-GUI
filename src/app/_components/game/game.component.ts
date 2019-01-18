@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Game} from '../../_models/game';
 import {WebsocketService} from '../../_services/websocket.service';
 import {PlayGameService} from '../../_services/play-game.service';
@@ -10,10 +10,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
+  @ViewChild('exampleModal') modal;
 
   @Input() game: Game = {};
   loading: boolean;
-  modal = false;
+  display;
 
 
   constructor(private webSocketService: WebsocketService,
@@ -24,9 +25,11 @@ export class GameComponent implements OnInit {
   ngOnInit() {
   }
 
-  showModal() {
-    this.modal = true;
+
+  showDialog() {
+    this.display = true;
   }
+
 
   startGame() {
     this.loading = true;
@@ -34,7 +37,7 @@ export class GameComponent implements OnInit {
     this.webSocketService.startPlayingGame().subscribe(
       data => {
         this.loading = false;
-        this.modal = false;
+        this.display = false;
         this.router.navigate(['/start-game/' + data.id]);
       });
 

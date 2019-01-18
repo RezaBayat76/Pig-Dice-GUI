@@ -1,35 +1,47 @@
-<div class="base" *ngIf="success && gameInfo.playersGameInfo">
-  <div class="wrapper clearfix">
-    <div class="player-0-panel"
-         [ngClass]="{'active':gameInfo.playersGameInfo[currentPlayer.id].hold}">
-      <div class="player-name" id="name-0">{{currentPlayer.firstName}} &nbsp; {{currentPlayer.lastName}}</div>
-      <div class="player-score" id="score-0">{{gameInfo.playersGameInfo[currentPlayer.id].score}}</div>
-      <div class="player-current-box">
-        <div class="player-current-label">Current</div>
-        <div class="player-current-score" id="current-0">{{gameInfo.playersGameInfo[currentPlayer.id].currentScore}}
+<div *ngIf="!winner">
+  <div class="base" *ngIf="success && gameInfo.playersGameInfo">
+    <div class="wrapper clearfix">
+      <div class="player-0-panel"
+           [ngClass]="{'active':gameInfo.playersGameInfo[currentPlayer.id].hold}">
+        <div class="player-name" id="name-0">{{currentPlayer.firstName}} &nbsp; {{currentPlayer.lastName}}</div>
+        <div class="player-score" id="score-0">{{gameInfo.playersGameInfo[currentPlayer.id].score}}</div>
+        <div class="player-current-box">
+          <div class="player-current-label">Current</div>
+          <div class="player-current-score" id="current-0">{{gameInfo.playersGameInfo[currentPlayer.id].currentScore}}
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="player-1-panel" [ngClass]="{'active':!gameInfo.playersGameInfo[currentPlayer.id].hold}">
-      <div class="player-name" id="name-1">{{competitorPlayer.firstName}} &nbsp; {{competitorPlayer.lastName}}</div>
-      <div class="player-score" id="score-1">{{gameInfo.playersGameInfo[competitorPlayer.id].score}}</div>
-      <div class="player-current-box">
-        <div class="player-current-label">Current</div>
-        <div class="player-current-score" id="current-1">
-          {{gameInfo.playersGameInfo[competitorPlayer.id].currentScore}}
+      <div class="player-1-panel" [ngClass]="{'active':!gameInfo.playersGameInfo[currentPlayer.id].hold}">
+        <div class="player-name" id="name-1">{{competitorPlayer.firstName}} &nbsp; {{competitorPlayer.lastName}}</div>
+        <div class="player-score" id="score-1">{{gameInfo.playersGameInfo[competitorPlayer.id].score}}</div>
+        <div class="player-current-box">
+          <div class="player-current-label">Current</div>
+          <div class="player-current-score" id="current-1">
+            {{gameInfo.playersGameInfo[competitorPlayer.id].currentScore}}
+          </div>
         </div>
       </div>
+
+      <!--<button class="btn-new"><i class="ion-ios-plus-outline"></i>New game</button>-->
+      <button [disabled]="!gameInfo.playersGameInfo[currentPlayer.id].hold" (click)="rollDice()" class="btn-roll"><i
+        class="ion-ios-loop"></i>Roll dice
+      </button>
+      <button [disabled]="!gameInfo.playersGameInfo[currentPlayer.id].hold" class="btn-hold" (click)="setHold()"><i
+        class="ion-ios-download-outline"></i>Hold
+      </button>
+
+      <img *ngIf="diceImagePath1" [src]="diceImagePath1" alt="Dice" class="dice-1">
+      <img *ngIf="diceImagePath2" [src]="diceImagePath2" alt="Dice" class="dice-2">
+
     </div>
-
-    <!--<button class="btn-new"><i class="ion-ios-plus-outline"></i>New game</button>-->
-    <button [disabled]="!gameInfo.playersGameInfo[currentPlayer.id].hold" (click)="rollDice()" class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
-    <button [disabled]="!gameInfo.playersGameInfo[currentPlayer.id].hold" class="btn-hold" (click)="setHold()"><i class="ion-ios-download-outline"></i>Hold</button>
-
-    <img *ngIf="diceImagePath1" [src]="diceImagePath1" alt="Dice" class="dice-1">
-    <img *ngIf="diceImagePath2" [src]="diceImagePath2" alt="Dice" class="dice-2">
-
   </div>
+
+  <div *ngIf="!success"> Disconnected</div>
 </div>
 
-<div *ngIf="!success"> Disconnected</div>
+<div *ngIf="winner">
+  <h6 *ngIf="winner.id === currentPlayer.id">YOU WIN</h6>
+  <h6 *ngIf="winner.id !== currentPlayer.id">YOU LOSE</h6>
+
+</div>

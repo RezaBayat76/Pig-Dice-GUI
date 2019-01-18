@@ -6,6 +6,7 @@ export interface User {
   gender?: string;
   username?: string;
   password?: string;
+  email?: string;
   token?: string;
   isOnline?: boolean;
   isFollowed?: boolean;

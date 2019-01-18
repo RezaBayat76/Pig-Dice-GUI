@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../_models/user';
-import {UserComment} from "../_models/user-comment";
+import {UserComment} from '../_models/user-comment';
+import {UserProfile} from '../_models/user-profile';
 
 
 @Injectable({providedIn: 'root'})
@@ -55,5 +56,13 @@ export class UserService {
 
   getFollowings() {
     return this.http.get(`${this.config.apiUrl}/users/followings`);
+  }
+
+  getProfile() {
+    return this.http.get<UserProfile>(`${this.config.apiUrl}/users/profile`);
+  }
+
+  editProfile(user: User) {
+    return this.http.put(`${this.config.apiUrl}/users/edit-profile`, user);
   }
 }
