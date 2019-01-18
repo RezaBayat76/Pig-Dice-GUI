@@ -16,7 +16,7 @@
       <span style="color: grey">average score: {{game.averageScore}}</span>
 
     </p>
-    <a href="#" class="card-link">Play Game</a>
+    <a [routerLink]="['/start-game', game.id]" class="card-link">Play Game</a>
     <a [routerLink]="['/game-comment', game.id]" class="card-link">add comment</a>
 
   </div>

@@ -7,14 +7,16 @@ import {ProfileComponent} from './profile/profile.component';
 import {GameStarterComponent} from './game-starter/game-starter.component';
 import {DesignGameComponent} from './design-game/design-game.component';
 import {UsersComponent} from './users/users.component';
-import {UserCommentComponent} from "./user-comment/user-comment.component";
-import {GameCommentComponent} from "./game-comment/game-comment.component";
+import {UserCommentComponent} from './user-comment/user-comment.component';
+import {GameCommentComponent} from './game-comment/game-comment.component';
+import {PlayGameComponent} from './play-game/play-game.component';
 
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'start-game', component: GameStarterComponent, canActivate: [AuthGuard]},
+  {path: 'start-game/:id', component: PlayGameComponent, canActivate: [AuthGuard]},
   {path: 'design-game', component: DesignGameComponent, canActivate: [AuthGuard]},
   {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
   {path: 'user-comment/:id', component: UserCommentComponent, canActivate: [AuthGuard]},

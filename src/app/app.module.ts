@@ -24,6 +24,7 @@ import { UserCommentComponent } from './user-comment/user-comment.component';
 import { UserCommentTemplateComponent } from './_components/user-comment-template/user-comment-template.component';
 import { GameCommentComponent } from './game-comment/game-comment.component';
 import { GameCommentTemplateComponent } from './_components/game-comment-template/game-comment-template.component';
+import { PlayGameComponent } from './play-game/play-game.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { GameCommentTemplateComponent } from './_components/game-comment-templat
     UserCommentComponent,
     UserCommentTemplateComponent,
     GameCommentComponent,
-    GameCommentTemplateComponent
+    GameCommentTemplateComponent,
+    PlayGameComponent
   ],
   imports: [
     BrowserModule,

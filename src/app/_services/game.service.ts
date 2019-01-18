@@ -33,4 +33,8 @@ export class GameService {
       gameId: id
     });
   }
+
+  getGameById(id) {
+    return this.http.get<Game>(`${this.config.apiUrl}/games/${id}`);
+  }
 }
