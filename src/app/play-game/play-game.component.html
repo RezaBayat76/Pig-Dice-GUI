@@ -1,4 +1,10 @@
-<div class="base">
+<div *ngIf="loading && !success">
+  loading
+  <img *ngIf="loading" class="pl-3"
+       src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+
+</div>
+<div class="base" *ngIf="success && !loading">
   <div class="wrapper clearfix">
     <div class="player-0-panel active">
       <div class="player-name" id="name-0">Player 1</div>
@@ -19,11 +25,13 @@
     </div>
 
     <!--<button class="btn-new"><i class="ion-ios-plus-outline"></i>New game</button>-->
-    <button (click)="rollDice()" class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
-    <button class="btn-hold"><i class="ion-ios-download-outline"></i>Hold</button>
+    <button [disabled]="hold" (click)="rollDice()" class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
+    <button [disabled]="hold" class="btn-hold"><i class="ion-ios-download-outline"></i>Hold</button>
 
     <img *ngIf="diceImagePath1" [src]="diceImagePath1" alt="Dice" class="dice-1">
     <img *ngIf="diceImagePath2" [src]="diceImagePath2" alt="Dice" class="dice-2">
 
   </div>
 </div>
+
+<div *ngIf="!success"> Disconnected</div>

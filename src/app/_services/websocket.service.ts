@@ -5,6 +5,7 @@ import {User} from '../_models/user';
 import {BehaviorSubject, Observable, Subject} from 'rxjs/index';
 import {Game} from '../_models/game';
 import {PlayedGame} from '../_models/played-game';
+import {GameInfo} from '../_models/game-info';
 
 
 @Injectable({
@@ -16,12 +17,15 @@ export class WebsocketService {
   users: Map<number, User> = new Map();
   onlineUsers: Map<number, User> = new Map();
   user: User;
+  playingGame: PlayedGame;
   private userSubject = new BehaviorSubject<Map<number, User>>(this.users);
   private onlineUserSubject = new BehaviorSubject<Map<number, User>>(this.onlineUsers);
   private onlineGamesSubject = new BehaviorSubject<Array<Game>>([]);
   private playingGameSubject = new Subject<PlayedGame>();
   private disconnectedGameSubject = new Subject<string>();
   private holdSubject = new Subject<boolean>();
+
+  private gameInfoSubject = new Subject<GameInfo>();
 
   constructor() {
   }
@@ -35,6 +39,7 @@ export class WebsocketService {
   }
 
   startGame(game: PlayedGame) {
+    this.playingGame = game;
     this.playingGameSubject.next(game);
   }
 
@@ -56,6 +61,14 @@ export class WebsocketService {
 
   hold(): Observable<boolean> {
     return this.holdSubject.asObservable();
+  }
+
+  updateGameInfo(gameInfo) {
+    this.gameInfoSubject.next(gameInfo);
+  }
+
+  getGameInfo(): Observable<GameInfo> {
+    return this.gameInfoSubject.asObservable();
   }
 
   setUser(user: User) {
@@ -148,7 +161,7 @@ export class WebsocketService {
         _this.updateOnlineGame(JSON.parse(message.body));
       });
 
-      _this.stompClient.subscribe('/topic/user/start-game', function (message) {
+      _this.stompClient.subscribe('/topic/user/game-start', function (message) {
         _this.startGame(JSON.parse(message.body));
       });
 
@@ -158,6 +171,10 @@ export class WebsocketService {
 
       _this.stompClient.subscribe('/topic/user/hold', function (message) {
         _this.updateHold(message.body);
+      });
+
+      _this.stompClient.subscribe('topic/user/game-info', function (message) {
+        _this.updateGameInfo(JSON.parse(message.body));
       });
 
       _this.stompClient.send('/app/start',

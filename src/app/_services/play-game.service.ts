@@ -16,4 +16,8 @@ export class PlayGameService {
   rollDice(id) {
     return this.http.get<Array<number>>(`${this.config.apiUrl}/played-games/roll-dice/${id}`);
   }
+
+  playGame(id: number) {
+    return this.http.get(`${this.config.apiUrl}/played-games/play-game/${id}`);
+  }
 }
