@@ -1,0 +1,22 @@
+<div style="height: 100%; padding-left: 100px; padding-right: 100px;">
+
+  <table class="table ">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Creator</th>
+      <th scope="col">Create Date</th>
+      <th scope="col">Average Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let game of games; let i = index">
+      <th scope="row">{{i}}</th>
+      <td>{{game.userCreator.firstName}}</td>
+      <td>{{game.createDate}}</td>
+      <td>{{game.averageScore}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -37,4 +37,18 @@ export class GameService {
   getGameById(id) {
     return this.http.get<Game>(`${this.config.apiUrl}/games/${id}`);
   }
+
+  mostPlayingGames() {
+    return this.http.get<Game>(`${this.config.apiUrl}/games/most-playing`);
+  }
+
+  bestGames() {
+    return this.http.get<Game>(`${this.config.apiUrl}/games/best-games`);
+
+  }
+
+  bestRecentlyGames() {
+    return this.http.get<Game>(`${this.config.apiUrl}/games/best-recently`);
+
+  }
 }

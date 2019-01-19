@@ -27,6 +27,7 @@ import {GameCommentTemplateComponent} from './_components/game-comment-template/
 import {PlayGameComponent} from './play-game/play-game.component';
 import {NgxSmartModalModule} from "ngx-smart-modal";
 import {DialogModule} from 'primeng/dialog';
+import { GameSliderComponent } from './_components/game-slider/game-slider.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {DialogModule} from 'primeng/dialog';
     UserCommentTemplateComponent,
     GameCommentComponent,
     GameCommentTemplateComponent,
-    PlayGameComponent
+    PlayGameComponent,
+    GameSliderComponent
   ],
   imports: [
     BrowserModule,
