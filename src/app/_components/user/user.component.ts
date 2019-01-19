@@ -12,6 +12,10 @@ export class UserComponent implements OnInit {
 
   @Input() user: User = {};
 
+  @Input() showOnline = true;
+
+  @Input() showFollowButton = true;
+
   constructor(private userService: UserService,
               private alertService: AlertService) {
   }
@@ -25,6 +29,7 @@ export class UserComponent implements OnInit {
       this.user.isFollowed = true;
     });
   }
+
   unFollow() {
     this.userService.unFollow(this.user.id).subscribe(data => {
       this.alertService.success('Un followed successfully');

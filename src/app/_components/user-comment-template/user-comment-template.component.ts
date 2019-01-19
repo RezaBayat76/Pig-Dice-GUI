@@ -9,6 +9,8 @@ import {UserComment} from '../../_models/user-comment';
 export class UserCommentTemplateComponent implements OnInit {
 
   @Input() comment: UserComment = {};
+
+  @Input() showCommentOn = true;
   constructor() { }
 
   ngOnInit() {

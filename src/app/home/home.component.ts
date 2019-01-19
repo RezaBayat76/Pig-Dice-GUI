@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               private userService: UserService,
               private websocketService: WebsocketService) {
 
+
   }
 
   ngOnInit() {

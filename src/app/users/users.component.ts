@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../_models/user';
 import {UserService} from '../_services/user.service';
 import {AuthenticationService} from '../_services/authentication.service';
@@ -16,6 +16,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   currentUserSubscription: Subscription;
   usersSubscription: Subscription;
 
+  @Input() showOnline = false;
+
   constructor(private authenticationService: AuthenticationService,
               private userService: UserService,
               private websocketService: WebsocketService) {
@@ -24,10 +26,22 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.currentUser = user;
 
     });
+    console.log('aaaaaaaaaa')
     this.usersSubscription = this.websocketService.getUsers().subscribe(usersMap => {
       this.users = [];
       usersMap.forEach(value => {
-        this.users.push(value);
+        console.log(value);
+        console.log(this.showOnline);
+        if (this.showOnline) {
+          console.log(value.isOnline)
+          if (value.isOnline) {
+            this.users.push(value);
+
+          }
+        } else {
+          this.users.push(value);
+        }
+        console.log(this.users);
       });
 
     });

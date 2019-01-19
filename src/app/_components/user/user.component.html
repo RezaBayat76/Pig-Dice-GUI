@@ -1,13 +1,13 @@
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">
+    <h6 class="card-subtitle mb-2 text-muted" *ngIf="showOnline">
       <span style="color:greenyellow" *ngIf="user.isOnline">online</span>
       <span style="color: orangered" *ngIf="!user.isOnline">offline</span>
     </h6>
     <p class="card-text"></p>
-    <button *ngIf="!user.isFollowed" (click)="follow()" type="button" class="btn btn-secondary btn-sm">Follow</button>
-    <button *ngIf="user.isFollowed" (click)="unFollow()" type="button" class="btn btn-secondary btn-sm">UnFollow</button>
+    <button *ngIf="!user.isFollowed && showFollowButton" (click)="follow()" type="button" class="btn btn-secondary btn-sm">Follow</button>
+    <button *ngIf="user.isFollowed && showFollowButton" (click)="unFollow()" type="button" class="btn btn-secondary btn-sm">UnFollow</button>
 
     <a [routerLink]="['/user-comment', user.id]" class="card-link" style="padding-left: 15px">add comment</a>
   </div>

@@ -78,7 +78,9 @@ export class WebsocketService {
   setAllUser(users: Array<User>) {
     this.users = new Map();
     users.forEach(user => {
-      this.users.set(user.id, user);
+      if (user.id !== this.user.id) {
+        this.users.set(user.id, user);
+      }
     });
     this.onlineUsers.forEach((value, key) => {
       this.users.get(key).isOnline = true;
@@ -104,6 +106,7 @@ export class WebsocketService {
     }
 
     this.onlineUserSubject.next(this.onlineUsers);
+    this.updateusers();
   }
 
   getOnlineUser(): Observable<Map<number, User>> {
@@ -121,37 +124,36 @@ export class WebsocketService {
     this.stompClient.connect({}, function (frame) {
       console.log('Connected: ' + frame);
       _this.stompClient.subscribe('/topic/user/online-users', function (message) {
-        console.log('online userssssss');
-        console.log(message.body);
         _this.onlineUsers = new Map();
 
         const users = JSON.parse(message.body);
         users.users.forEach(user => {
           user.isOnline = true;
-          _this.onlineUsers.set(user.id, user);
+          if (_this.user.id !== user.id) {
+            _this.onlineUsers.set(user.id, user);
+          }
         });
         _this.updateOnlineUsers();
       });
 
 
       _this.stompClient.subscribe('/topic/user-online', function (message) {
-        console.log(message.body);
         const user = JSON.parse(message.body);
         user.isOnline = true;
-        _this.onlineUsers.set(user.id, user);
+        if (user.id !== _this.user.id) {
+          _this.onlineUsers.set(user.id, user);
+        }
         _this.updateOnlineUsers();
       });
 
 
       _this.stompClient.subscribe('/topic/user-offline', function (message) {
-        console.log(message.body);
         const user = JSON.parse(message.body);
         _this.onlineUsers.delete(user.id);
         _this.updateOnlineUsers();
       });
 
       _this.stompClient.subscribe('/topic/new-user', function (message) {
-        console.log(message.body);
         const user = JSON.parse(message.body);
         _this.users.set(user.id, user);
         _this.updateusers();
