@@ -1,5 +1,7 @@
 export interface GameInfo {
   playersGameInfo?: Map<number, PlayerGameInfo>;
+  playedGameId?: number;
+  gameId?: number;
 }
 
 export interface PlayerGameInfo {
@@ -8,5 +10,5 @@ export interface PlayerGameInfo {
   hold?: boolean;
   currentDices?: Array<number>;
   currentThrow?: number;
-  isWin?: boolean;
+  win?: boolean;
 }

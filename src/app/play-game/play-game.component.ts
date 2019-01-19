@@ -15,12 +15,13 @@ import {User} from '../_models/user';
 })
 export class PlayGameComponent implements OnInit {
 
+  score = 5;
+
   finished = false;
   success = true;
   loading = true;
   hold: boolean;
   id: number;
-  game: Game = {};
   diceImagePath1: string;
   diceImagePath2: string;
   playingGame: PlayedGame;
@@ -76,7 +77,6 @@ export class PlayGameComponent implements OnInit {
 
     this.webSocketService.hold().subscribe(
       (data: boolean) => {
-        console.log(data)
         this.hold = data;
       });
 
@@ -97,10 +97,10 @@ export class PlayGameComponent implements OnInit {
 
           }
 
-          if (this.gameInfo.playersGameInfo[this.currentPlayer.id].isWin) {
+          if (this.gameInfo.playersGameInfo[this.currentPlayer.id].win) {
             this.finished = true;
             this.winner = this.currentPlayer;
-          } else if (this.gameInfo.playersGameInfo[this.competitorPlayer.id].isWin) {
+          } else if (this.gameInfo.playersGameInfo[this.competitorPlayer.id].win) {
             this.finished = true;
             this.winner = this.competitorPlayer;
           }
@@ -115,5 +115,19 @@ export class PlayGameComponent implements OnInit {
     if (rollDice[1]) {
       this.diceImagePath2 = '../../assets/dice-' + rollDice[1] + '.png';
     }
+  }
+
+  setScore() {
+    this.gameService.updateScore(
+      {
+        gameId: this.gameInfo.gameId,
+        score: this.score,
+        playedGameId: this.gameInfo.playedGameId
+      })
+      .subscribe(
+      data => {
+
+      });
+
   }
 }

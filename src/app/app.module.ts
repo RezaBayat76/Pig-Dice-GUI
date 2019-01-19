@@ -11,7 +11,7 @@ import {RegisterComponent} from './register/register.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {routing} from './app.routing';
 import {UserComponent} from './_components/user/user.component';
 import {MatCardModule} from '@angular/material';
@@ -58,6 +58,7 @@ import { GameSliderComponent } from './_components/game-slider/game-slider.compo
     MatCardModule,
     NgxSmartModalModule.forRoot(),
     DialogModule,
+    FormsModule,
     routing
   ],
   providers: [

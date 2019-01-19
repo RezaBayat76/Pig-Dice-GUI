@@ -44,4 +44,20 @@
   <h6 *ngIf="winner.id === currentPlayer.id">YOU WIN</h6>
   <h6 *ngIf="winner.id !== currentPlayer.id">YOU LOSE</h6>
 
+  <div class="d-flex justify-content-center">
+    <a [routerLink]="['/user-comment', competitorPlayer.id]" class="card-link">do you want add
+      comment to competitor?</a>
+  </div>
+
+  <div>
+    <label for="score">Score for this game</label>
+    <input id="score" type="number" [(ngModel)]="score"/>
+  </div>
+  <div>
+    <button (click)="setScore()" type="button" class="btn btn-secondary btn-sm">Set Score</button>
+  </div>
+
+
+
+
 </div>

@@ -39,16 +39,21 @@ export class GameService {
   }
 
   mostPlayingGames() {
-    return this.http.get<Game>(`${this.config.apiUrl}/games/most-playing`);
+    return this.http.get<Array<Game>>(`${this.config.apiUrl}/games/most-playing`);
   }
 
   bestGames() {
-    return this.http.get<Game>(`${this.config.apiUrl}/games/best-games`);
+    return this.http.get<Array<Game>>(`${this.config.apiUrl}/games/best-games`);
 
   }
 
   bestRecentlyGames() {
-    return this.http.get<Game>(`${this.config.apiUrl}/games/best-recently`);
+    return this.http.get<Array<Game>>(`${this.config.apiUrl}/games/best-recently`);
+
+  }
+
+  updateScore(updateScore: { gameId: number; score: number; playedGameId: number }) {
+    return this.http.post(`${this.config.apiUrl}/games/update-score`, updateScore);
 
   }
 }
