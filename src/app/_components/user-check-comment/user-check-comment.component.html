@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Comment by: {{comment.userCreator.username}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Comment on: {{comment.mentionUser.username}}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">Score: {{comment.score}}</h6>
+    <p class="card-subtitle mb-2 text-muted">Comment: {{comment.text}}</p>
+    <button (click)="acceptComment()" type="button" class="btn btn-success" style="margin-right: 20px">Accept</button>
+    <button (click)="declineComment()" type="button" class="btn btn-danger">Decline</button>
+  </div>
+</div>
