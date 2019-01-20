@@ -25,9 +25,12 @@ import {UserCommentTemplateComponent} from './_components/user-comment-template/
 import {GameCommentComponent} from './game-comment/game-comment.component';
 import {GameCommentTemplateComponent} from './_components/game-comment-template/game-comment-template.component';
 import {PlayGameComponent} from './play-game/play-game.component';
-import {NgxSmartModalModule} from "ngx-smart-modal";
+import {NgxSmartModalModule} from 'ngx-smart-modal';
 import {DialogModule} from 'primeng/dialog';
 import { GameSliderComponent } from './_components/game-slider/game-slider.component';
+import { AdminCheckCommentsComponent } from './admin-check-comments/admin-check-comments.component';
+import { GameCheckCommentComponent } from './_components/game-check-comment/game-check-comment.component';
+import { UserCheckCommentComponent } from './_components/user-check-comment/user-check-comment.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { GameSliderComponent } from './_components/game-slider/game-slider.compo
     GameCommentComponent,
     GameCommentTemplateComponent,
     PlayGameComponent,
-    GameSliderComponent
+    GameSliderComponent,
+    AdminCheckCommentsComponent,
+    GameCheckCommentComponent,
+    UserCheckCommentComponent
   ],
   imports: [
     BrowserModule,

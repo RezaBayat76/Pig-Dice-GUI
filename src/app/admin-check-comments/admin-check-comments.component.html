@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Game Comments</h4>
+      <div>
+        <app-game-check-comment *ngFor="let comment of gameComments" [comment]="comment"
+                                (removedComment)="removeGameComment($event)"></app-game-check-comment>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h4>User Comments</h4>
+      <div>
+        <app-user-check-comment *ngFor="let comment of userComments" [comment]="comment"
+                                (removedComment)="removeUserComment($event)"></app-user-check-comment>
+      </div>
+    </div>
+  </div>
+</div>

@@ -44,16 +44,25 @@ export class GameService {
 
   bestGames() {
     return this.http.get<Array<Game>>(`${this.config.apiUrl}/games/best-games`);
-
   }
 
   bestRecentlyGames() {
     return this.http.get<Array<Game>>(`${this.config.apiUrl}/games/best-recently`);
-
   }
 
   updateScore(updateScore: { gameId: number; score: number; playedGameId: number }) {
     return this.http.post(`${this.config.apiUrl}/games/update-score`, updateScore);
+  }
 
+  uncheckedComments() {
+    return this.http.get<Array<GameComment>>(`${this.config.apiUrl}/games/unchecked-comments`);
+  }
+
+  acceptComment(id: number) {
+    return this.http.get(`${this.config.apiUrl}/games/accept-comment/${id}`);
+  }
+
+  declineComment(id: number) {
+    return this.http.get(`${this.config.apiUrl}/games/decline-comment/${id}`);
   }
 }

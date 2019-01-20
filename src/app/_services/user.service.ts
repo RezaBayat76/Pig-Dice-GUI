@@ -65,4 +65,17 @@ export class UserService {
   editProfile(user: User) {
     return this.http.put(`${this.config.apiUrl}/users/edit-profile`, user);
   }
+
+  uncheckedComments() {
+    return this.http.get<Array<UserComment>>(`${this.config.apiUrl}/users/unchecked-comments`);
+  }
+
+  acceptComment(id: number) {
+    return this.http.get(`${this.config.apiUrl}/users/accept-comment/${id}`);
+  }
+
+  declineComment(id: number) {
+    return this.http.get(`${this.config.apiUrl}/users/decline-comment/${id}`);
+
+  }
 }

@@ -10,6 +10,7 @@ import {UsersComponent} from './users/users.component';
 import {UserCommentComponent} from './user-comment/user-comment.component';
 import {GameCommentComponent} from './game-comment/game-comment.component';
 import {PlayGameComponent} from './play-game/play-game.component';
+import {AdminCheckCommentsComponent} from "./admin-check-comments/admin-check-comments.component";
 
 
 const appRoutes: Routes = [
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
   {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
   {path: 'user-comment/:id', component: UserCommentComponent, canActivate: [AuthGuard]},
   {path: 'game-comment/:id', component: GameCommentComponent, canActivate: [AuthGuard]},
+  {path: 'check-comment', component: AdminCheckCommentsComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
 
