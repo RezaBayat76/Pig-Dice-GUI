@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PlayGameService} from '../_services/play-game.service';
 import {ActivatedRoute} from '@angular/router';
 import {GameService} from '../_services/game.service';
-import {Game} from '../_models/game';
 import {WebsocketService} from '../_services/websocket.service';
 import {PlayedGame} from '../_models/played-game';
 import {GameInfo} from '../_models/game-info';
 import {User} from '../_models/user';
+import {Subscription} from 'rxjs/index';
 
 @Component({
   selector: 'app-play-game',
   templateUrl: './play-game.component.html',
   styleUrls: ['./play-game.component.css']
 })
-export class PlayGameComponent implements OnInit {
+export class PlayGameComponent implements OnInit, OnDestroy {
 
   score = 5;
 
@@ -29,6 +29,8 @@ export class PlayGameComponent implements OnInit {
   currentPlayer: User;
   competitorPlayer: User;
   winner: User;
+
+  gameInfoSubscription: Subscription;
 
 
   constructor(private webSocketService: WebsocketService,
@@ -51,6 +53,9 @@ export class PlayGameComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.winner = undefined;
+    this.gameInfo = {};
+
   }
 
   rollDice() {
@@ -80,7 +85,7 @@ export class PlayGameComponent implements OnInit {
         this.hold = data;
       });
 
-    this.webSocketService.getGameInfo().subscribe(
+    this.gameInfoSubscription = this.webSocketService.getGameInfo().subscribe(
       data => {
         if (data.playersGameInfo) {
           this.diceImagePath1 = null;
@@ -125,9 +130,14 @@ export class PlayGameComponent implements OnInit {
         playedGameId: this.gameInfo.playedGameId
       })
       .subscribe(
-      data => {
+        data => {
 
-      });
+        });
 
+  }
+
+  ngOnDestroy() {
+    if (this.gameInfoSubscription)
+      this.gameInfoSubscription.unsubscribe();
   }
 }

@@ -38,19 +38,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   getMostPlayingGames() {
-    this.gameService.mostPlayingGames().subscribe(data => {
+    this.gameService.mostPlayingGames().subscribe((data: Array<Game>) => {
       this.mostPlayingGames = data;
     });
   }
 
   getBestGames() {
-    this.gameService.bestGames().subscribe(data => {
+    this.gameService.bestGames().subscribe((data: Array<Game>) => {
       this.mostPlayingGames = data;
     });
   }
 
   getBestRecentlyGames() {
-    this.gameService.bestRecentlyGames().subscribe(data => {
+    this.gameService.bestRecentlyGames().subscribe((data: Array<Game>) => {
       this.mostPlayingGames = data;
     });
   }
