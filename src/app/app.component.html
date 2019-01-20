@@ -22,7 +22,7 @@
         <a class="nav-link" routerLink="/users">Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/check-comment">Admin</a>
+        <a *ngIf="currentUser.role === 'ADMIN'" class="nav-link" routerLink="/check-comment">Admin</a>
       </li>
     </ul>
 
