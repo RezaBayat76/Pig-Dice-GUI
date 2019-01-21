@@ -26,7 +26,6 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.currentUser = user;
 
     });
-    console.log('aaaaaaaaaa')
     this.usersSubscription = this.websocketService.getUsers().subscribe(usersMap => {
       this.users = [];
       usersMap.forEach(value => {

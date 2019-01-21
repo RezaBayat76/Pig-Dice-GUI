@@ -137,7 +137,8 @@ export class PlayGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.gameInfoSubscription)
+    if (this.gameInfoSubscription) {
       this.gameInfoSubscription.unsubscribe();
+    }
   }
 }

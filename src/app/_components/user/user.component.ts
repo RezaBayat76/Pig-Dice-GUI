@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
   @Input() showOnline = true;
 
   @Input() showFollowButton = true;
+  @Input() showProfile = true;
 
   constructor(private userService: UserService,
               private alertService: AlertService) {

@@ -1,11 +1,30 @@
-<h1>Comment of user {{user.username}} </h1>
+<h1></h1>
+
+
 <div class="container">
-    <div *ngFor="let comment of comments">
-      <app-user-comment-template [comment]="comment"></app-user-comment-template>
+  <h1 style="margin-bottom: 50px">{{user.firstName}}&nbsp;{{user.lastName}} </h1>
+
+  <div class="row" style="margin-bottom: 20px">
+    <h3>Designed games</h3>
+    <div class="container">
+        <div class="row">
+          <div  *ngFor="let game of games" class="col-sm-4">
+          <app-game [game]="game"></app-game>
+        </div>
+      </div>
     </div>
-</div>
-<div class="container">
-  <div class="row">
+  </div>
+
+  <div class="row" style="margin-bottom: 20px">
+    <h3>Comments</h3>
+    <div class="container">
+      <div *ngFor="let comment of comments">
+        <app-user-comment-template [comment]="comment"></app-user-comment-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom: 20px">
     <div class="col-sm-6 offset-sm-3">
       <h2>Add comment</h2>
       <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
@@ -21,7 +40,7 @@
         <div class="form-group">
           <label for="message">message</label>
           <textarea id="message" type="text" formControlName="text" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.text.errors }"></textarea>
+                    [ngClass]="{ 'is-invalid': submitted && f.text.errors }"></textarea>
           <div *ngIf="submitted && f.text.errors" class="invalid-feedback">
             <div *ngIf="f.text.errors.required">Message is required</div>
           </div>

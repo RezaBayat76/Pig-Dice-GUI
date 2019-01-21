@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../_models/user';
 import {UserComment} from '../_models/user-comment';
 import {UserProfile} from '../_models/user-profile';
+import {Game} from "../_models/game";
 
 
 @Injectable({providedIn: 'root'})
@@ -76,6 +77,11 @@ export class UserService {
 
   declineComment(id: number) {
     return this.http.get(`${this.config.apiUrl}/users/decline-comment/${id}`);
+
+  }
+
+  designedGames(id: number) {
+    return this.http.get<Array<Game>>(`${this.config.apiUrl}/users/designed-games/${id}`);
 
   }
 }

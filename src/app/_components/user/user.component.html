@@ -9,6 +9,6 @@
     <button *ngIf="!user.isFollowed && showFollowButton" (click)="follow()" type="button" class="btn btn-secondary btn-sm">Follow</button>
     <button *ngIf="user.isFollowed && showFollowButton" (click)="unFollow()" type="button" class="btn btn-secondary btn-sm">UnFollow</button>
 
-    <a [routerLink]="['/user-comment', user.id]" class="card-link" style="padding-left: 15px">add comment</a>
+    <a [routerLink]="['/user-comment', user.id]" *ngIf="showProfile" class="card-link" style="padding-left: 15px">user profile</a>
   </div>
 </div>

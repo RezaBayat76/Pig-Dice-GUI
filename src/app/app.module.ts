@@ -31,6 +31,8 @@ import { GameSliderComponent } from './_components/game-slider/game-slider.compo
 import { AdminCheckCommentsComponent } from './admin-check-comments/admin-check-comments.component';
 import { GameCheckCommentComponent } from './_components/game-check-comment/game-check-comment.component';
 import { UserCheckCommentComponent } from './_components/user-check-comment/user-check-comment.component';
+import { GuestComponent } from './guest/guest.component';
+import { GuestOnlineUserComponent } from './guest-online-user/guest-online-user.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { UserCheckCommentComponent } from './_components/user-check-comment/user
     GameSliderComponent,
     AdminCheckCommentsComponent,
     GameCheckCommentComponent,
-    UserCheckCommentComponent
+    UserCheckCommentComponent,
+    GuestComponent,
+    GuestOnlineUserComponent
   ],
   imports: [
     BrowserModule,

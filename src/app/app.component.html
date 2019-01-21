@@ -6,23 +6,23 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li *ngIf="currentUser && currentUser.role !== 'GUEST'" class="nav-item active">
         <a class="nav-link" routerLink="/">Home </a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="currentUser && currentUser.role !== 'GUEST'" class="nav-item">
         <a class="nav-link" routerLink="/profile">Profile</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="currentUser && currentUser.role !== 'GUEST'" class="nav-item">
         <a class="nav-link" routerLink="/start-game">Start Game</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="currentUser && currentUser.role !== 'GUEST'" class="nav-item">
         <a class="nav-link" routerLink="/design-game">Design Game</a>
       </li>
-       <li class="nav-item">
+      <li *ngIf="currentUser && currentUser.role !== 'GUEST'" class="nav-item">
         <a class="nav-link" routerLink="/users">Users</a>
       </li>
-      <li class="nav-item">
-        <a *ngIf="currentUser.role === 'ADMIN'" class="nav-link" routerLink="/check-comment">Admin</a>
+      <li *ngIf="currentUser && currentUser.role === 'ADMIN'" class="nav-item">
+        <a class="nav-link" routerLink="/check-comment">Admin</a>
       </li>
     </ul>
 

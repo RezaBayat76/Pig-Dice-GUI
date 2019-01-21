@@ -11,6 +11,8 @@ import {UserCommentComponent} from './user-comment/user-comment.component';
 import {GameCommentComponent} from './game-comment/game-comment.component';
 import {PlayGameComponent} from './play-game/play-game.component';
 import {AdminCheckCommentsComponent} from "./admin-check-comments/admin-check-comments.component";
+import {GuestComponent} from "./guest/guest.component";
+import {GuestOnlineUserComponent} from "./guest-online-user/guest-online-user.component";
 
 
 const appRoutes: Routes = [
@@ -23,6 +25,8 @@ const appRoutes: Routes = [
   {path: 'user-comment/:id', component: UserCommentComponent, canActivate: [AuthGuard]},
   {path: 'game-comment/:id', component: GameCommentComponent, canActivate: [AuthGuard]},
   {path: 'check-comment', component: AdminCheckCommentsComponent, canActivate: [AuthGuard]},
+  {path: 'guest', component: GuestComponent},
+  {path: 'guest-main', component: GuestOnlineUserComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
 

@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../_services/alert.service';
 import {first} from 'rxjs/internal/operators';
 import {Subscription} from 'rxjs/index';
+import {Game} from '../_models/game';
 
 @Component({
   selector: 'app-user-comment',
@@ -21,6 +22,7 @@ export class UserCommentComponent implements OnInit, OnDestroy {
   user: User = {};
   comments: Array<UserComment> = [];
   userSubscription: Subscription;
+  games: Array<Game> = [];
 
   constructor(private webSocketService: WebsocketService,
               private userService: UserService,
@@ -40,6 +42,7 @@ export class UserCommentComponent implements OnInit, OnDestroy {
     });
 
     this.loadComments(id);
+    this.loadGames(id);
     this.commentForm = this.formBuilder.group({
       score: [0, Validators.required],
       text: ['', Validators.required]
@@ -49,6 +52,12 @@ export class UserCommentComponent implements OnInit, OnDestroy {
   loadComments(id) {
     this.userService.getCommentOnUser(id).subscribe((data: Array<UserComment>) => {
       this.comments = data;
+    });
+  }
+
+  loadGames(id) {
+    this.userService.designedGames(id).subscribe((data: Array<Game>) => {
+      this.games = data;
     });
   }
 
@@ -76,6 +85,7 @@ export class UserCommentComponent implements OnInit, OnDestroy {
           this.alertService.success('comment added successfully', false);
           this.loading = false;
           this.loadComments(this.user.id);
+          this.loadGames(this.user.id);
         },
         error => {
           this.alertService.error(error);

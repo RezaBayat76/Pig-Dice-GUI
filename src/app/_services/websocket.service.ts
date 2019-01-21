@@ -78,8 +78,13 @@ export class WebsocketService {
   setAllUser(users: Array<User>) {
     this.users = new Map();
     users.forEach(user => {
-      if (user.id !== this.user.id) {
+      if (this.user) {
+        if (user.id !== this.user.id) {
+          this.users.set(user.id, user);
+        }
+      } else {
         this.users.set(user.id, user);
+
       }
     });
     this.onlineUsers.forEach((value, key) => {
